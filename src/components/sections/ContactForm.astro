@@ -1,0 +1,16 @@
+---
+import type { BlockInterface, HeroContentType } from "../../config/blocks.type";
+
+interface Props extends BlockInterface<HeroContentType> {}
+
+const { name, contents } = Astro.props;
+const content: HeroContentType = contents;
+---
+
+<section id={name}>
+    <div class="container mx-auto grid grid-cols-2 gap-12">
+        <div>
+            <h1>Feature cards</h1>
+        </div>
+    </div>
+</section>

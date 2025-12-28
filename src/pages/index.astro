@@ -1,0 +1,45 @@
+---
+import BenefitSection from "../components/sections/BenefitSection.astro";
+import CtaSection from "../components/sections/CtaSection.astro";
+import FeatureCards from "../components/sections/FeatureCards.astro";
+import Hero from "../components/sections/Hero.astro";
+import ListCards from "../components/sections/ListCards.astro";
+import SocialMedia from "../components/sections/SocialMedia.astro";
+import TimelineSection from "../components/sections/TimelineSection.astro";
+import { Blocks } from "../config/blocks";
+import type {
+    BenefitsSectionContentType,
+    BlockInterface,
+    CtaSectionContentType,
+    FeatureCardsContentType,
+    HeroContentType,
+    ListCardsContentType,
+    SocialMediaContentType,
+    TimelineContentType,
+} from "../config/blocks.type";
+import { Site } from "../config/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title={Site.title} description={Site.description}>
+    {
+        Blocks.map((item) => {
+            switch (item.type) {
+                case "hero":
+                    return <Hero {...(item as BlockInterface<HeroContentType>)} />;
+                case "benefit-section":
+                    return <BenefitSection {...(item as BlockInterface<BenefitsSectionContentType>)} />;
+                case "timeline-section":
+                    return <TimelineSection {...(item as BlockInterface<TimelineContentType>)} />;
+                case "feature-cards":
+                    return <FeatureCards {...(item as BlockInterface<FeatureCardsContentType>)} />;
+                case "list-cards":
+                    return <ListCards {...(item as BlockInterface<ListCardsContentType>)} />;
+                case "cta-section":
+                    return <CtaSection {...(item as BlockInterface<CtaSectionContentType>)} />;
+                case "social-media":
+                    return <SocialMedia {...(item as BlockInterface<SocialMediaContentType>)} />;
+            }
+        })
+    }
+</BaseLayout>

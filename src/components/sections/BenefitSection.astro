@@ -1,0 +1,37 @@
+---
+import { Image } from "astro:assets";
+import type { BlockInterface, BenefitsSectionContentType } from "../../config/blocks.type";
+import { Icon } from "astro-icon/components";
+import clsx from "clsx";
+
+interface Props extends BlockInterface<BenefitsSectionContentType> {}
+
+const { name, contents } = Astro.props;
+const content: BenefitsSectionContentType = contents;
+---
+
+<section id={name} class="relative py-16 text-accent-content bg-accent">
+    <div class="container mx-auto grid gap-6 px-6 lg:px-32">
+        <div class="relative text-center">
+            <h1 class="text-4xl md:text-6xl font-bold">{content.title}</h1>
+            <h3 class="text-xl my-4 opacity-75">{content.subtitle}</h3>
+        </div>
+        <div class="flex flex-row flex-wrap w-fit justify-center mx-auto gap-4">
+            {
+                content.children.map((item, index) => (
+                    <a href={item.href}>
+                        <div
+                            class={clsx(
+                                "flex flex-col py-4 px-8 items-center justify-center gap-2 border rounded-box border-transparent",
+                                "transition-all hover:border-primary/50 hover:scale-105 ease-out "
+                            )}
+                        >
+                            <Icon name={item.icon} size={64} />
+                            <h6>{item.title}</h6>
+                        </div>
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+</section>

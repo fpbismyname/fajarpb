@@ -1,0 +1,48 @@
+---
+import { Icon } from "astro-icon/components";
+import type { BlockInterface, ListCardsContentType } from "../../config/blocks.type";
+import { typeWebsite } from "../../config/type-website";
+import clsx from "clsx";
+
+interface Props extends BlockInterface<ListCardsContentType> {}
+
+const { name, contents } = Astro.props;
+const content: ListCardsContentType = contents;
+---
+
+<section id={name} class="relative py-24 lg:py-32">
+    <div class="container mx-auto flex flex-col px-6">
+        <div class="relative">
+            {content.title && <h1 class="text-4xl lg:text-6xl font-bold">{content.title}</h1>}
+            {content.subtitle && <h3 class="text-md lg:text-xl my-4 text-base-content/75">{content.subtitle}</h3>}
+        </div>
+        {
+            Array.isArray(content.children) && (
+                <div class="grid grid-cols-2 lg:grid-cols-4 mt-6 gap-4">
+                    {content.children.map((item) => (
+                        <div class="card relative hover:shadow-[0_0_10px_var(--color-secondary)] transition-all w-full bg-secondary text-secondary-content border border-primary/50">
+                            {item.icon && (
+                                <Icon
+                                    aria-hidden="true"
+                                    name={item.icon}
+                                    width={16}
+                                    height={16}
+                                    class="absolute top-0 right-0 m-2"
+                                />
+                            )}
+                            <a href={item.href} target="_blank">
+                                <div class="card-body grid grid-rows-[auto_auto_1fr]">
+                                    <h1 class="card-title font-bold">{item.title}</h1>
+                                    <div class="badge badge-sm badge-primary border-primary-content/50">
+                                        {typeWebsite[item.type]?.label}
+                                    </div>
+                                    <p class="text-md text-secondary-content/75">{item.description}</p>
+                                </div>
+                            </a>
+                        </div>
+                    ))}
+                </div>
+            )
+        }
+    </div>
+</section>

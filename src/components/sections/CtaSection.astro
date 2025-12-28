@@ -1,0 +1,33 @@
+---
+import { Icon } from "astro-icon/components";
+import type { BlockInterface, HeroContentType } from "../../config/blocks.type";
+
+interface Props extends BlockInterface<HeroContentType> {}
+
+const { name, contents } = Astro.props;
+const content: HeroContentType = contents;
+---
+
+<section id={name} class="py-32 bg-primary text-primary-content">
+    <div class="container mx-auto flex flex-col items-center justify-center">
+        <div class="relative">
+            <h1 class="text-4xl lg:text-6xl font-bold">{content.title}</h1>
+            <h3 class="text-md lg:text-xl my-4 max-w-xl text-center mx-auto text-primary-content/75">
+                {content.subtitle}
+            </h3>
+            <div class="flex flex-row gap-2 justify-center mt-6">
+                {
+                    Array.isArray(content.actions) &&
+                        content.actions.map((item) => {
+                            return (
+                                <a href={item.href} class="btn btn-outline">
+                                    {item.label}
+                                    {item.icon && <Icon name={item.icon} width={16} height={16} />}
+                                </a>
+                            );
+                        })
+                }
+            </div>
+        </div>
+    </div>
+</section>

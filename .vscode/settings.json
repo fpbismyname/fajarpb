@@ -1,0 +1,10 @@
+{
+    "[astro]": {
+        "editor.quickSuggestions": {
+            "other": true,
+            "strings": true,
+            "comments": false
+        },
+        "editor.suggestOnTriggerCharacters": true
+    }
+}

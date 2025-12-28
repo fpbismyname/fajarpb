@@ -1,0 +1,59 @@
+---
+import { Image } from "astro:assets";
+import type { BlockInterface, HeroContentType } from "../../config/blocks.type";
+import clsx from "clsx";
+import { Icon } from "astro-icon/components";
+
+interface Props extends BlockInterface<HeroContentType> {}
+
+const { name, contents } = Astro.props;
+const content: HeroContentType = contents;
+---
+
+<section id={name} class={clsx(content.reverse ? "relative py-32 lg:py-64" : "relative py-64 lg:py-80 bg-base-300")}>
+    <div
+        class={clsx(
+            "container mx-auto flex gap-12 px-6 lg:px-32 text-center lg:text-start",
+            content.reverse ? "flex-col-reverse lg:flex-row-reverse" : "flex-col lg:flex-row"
+        )}
+    >
+        <div class={clsx("flex flex-1 flex-col")}>
+            {
+                content.badge && (
+                    <div class={clsx("badge badge-sm lg:badge-md mx-auto lg:mx-0", content.badge.variant)}>
+                        {content.badge.icon && <Icon name={content.badge.icon} />}
+                        {content.badge.label}
+                    </div>
+                )
+            }
+            {content.title && <h1 class="text-4xl lg:text-6xl font-bold my-4">{content.title}</h1>}
+            {content.subtitle && <h3 class="text-md lg:text-xl mb-4 opacity-75">{content.subtitle}</h3>}
+            {
+                Array.isArray(content.actions) && (
+                    <div class="grid grid-cols-2 gap-2 place-content-center w-fit mx-auto lg:mx-0">
+                        {content.actions.map((item) => (
+                            <a href={item.href} class={clsx("btn", item.variant)}>
+                                {item.label} <Icon name={item.icon} />
+                            </a>
+                        ))}
+                    </div>
+                )
+            }
+        </div>
+        {
+            content.image.url != null && (
+                <div class={clsx("flex flex-1 flex-col")}>
+                    <figure class="relative w-full h-full min-h-64">
+                        <Image
+                            src={content.image.url ?? ""}
+                            alt={content.image.alt ?? ""}
+                            width={500}
+                            height={500}
+                            class={clsx("absolute w-full h-full object-contain")}
+                        />
+                    </figure>
+                </div>
+            )
+        }
+    </div>
+</section>

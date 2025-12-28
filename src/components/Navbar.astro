@@ -1,0 +1,89 @@
+---
+import { Icon } from "astro-icon/components";
+import { NavigationMenu } from "../config/navigation";
+
+const NavBrand = NavigationMenu.brand;
+const NavMenu = NavigationMenu.menu;
+const NavRightButton = NavigationMenu.rightButtons;
+---
+
+<header
+    id="navbar"
+    class="fixed text-primary-content top-0 w-full z-10 transition-all ease-out"
+    x-data="{scrolled: false}"
+    x-init="document.addEventListener('scroll',()=>{
+    const scrollY = window.scrollY
+    scrolled = scrollY > 100
+})"
+    x-cloak
+    x-bind:class="scrolled ? 'bg-primary/75 backdrop-blur-xl' : 'bg-transparent'"
+>
+    <nav class="container mx-auto px-6">
+        <div class="navbar" x-bind:class="scrolled ? 'text-primary-content' : 'text-base-content'">
+            <div class="flex flex-1 lg:flex-none">
+                <a href={NavBrand.href} class="btn btn-ghost text-xl font-bold">{NavBrand.title}</a>
+            </div>
+            <div class="flex flex-none lg:mx-auto">
+                <ul class="hidden lg:flex menu menu-horizontal gap-2">
+                    {
+                        NavMenu.map((item) => (
+                            <li>
+                                <a href={item.href}>{item.label}</a>
+                            </li>
+                        ))
+                    }
+                </ul>
+                <div class="block lg:hidden drawer drawer-end">
+                    <input id="drawer-landing" type="checkbox" class="drawer-toggle" />
+                    <div class="drawer-content">
+                        <label for="drawer-landing" class="cursor-pointer btn btn-ghost btn-circle">
+                            <Icon name="lucide:menu" size={16} />
+                        </label>
+                    </div>
+                    <div class="drawer-side">
+                        <label for="drawer-landing" aria-label="close sidebar" class="drawer-overlay"></label>
+                        <ul class="menu bg-base-300 text-base-content min-h-full w-80 p-4">
+                            <div class="flex flex-row justify-between p-2">
+                                <h6 class="font-bold">Menu</h6>
+                                <label for="drawer-landing" class="cursor-pointer">
+                                    <Icon name="lucide:x" size={16} />
+                                </label>
+                            </div>
+                            {
+                                NavMenu.map((item) => (
+                                    <li>
+                                        <a href={item.href}>{item.label}</a>
+                                    </li>
+                                ))
+                            }
+                            <div class="divider"></div>
+                            {
+                                NavRightButton.map((item) => (
+                                    <li>
+                                        <a href={item.href}>
+                                            {item.label}
+                                            <Icon name={item.icon} size={16} />
+                                        </a>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden lg:flex flex-none">
+                <ul class="menu menu-horizontal gap-2">
+                    {
+                        NavRightButton.map((item) => (
+                            <li>
+                                <a href={item.href} class={`btn ${item.variant}`}>
+                                    {item.label} <Icon name={item.icon} size={16} />
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

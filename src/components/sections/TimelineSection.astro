@@ -1,0 +1,49 @@
+---
+import clsx from "clsx";
+import type { BlockInterface, TimelineContentType } from "../../config/blocks.type";
+import { Icon } from "astro-icon/components";
+
+interface Props extends BlockInterface<TimelineContentType> {}
+
+const { name, contents } = Astro.props;
+const content: TimelineContentType = contents;
+---
+
+<section id={name} class="relative py-24 lg:py-32 text-base-content bg-base-300">
+    <div class="container mx-auto px-6 lg:px-64">
+        <div class="flex flex-col items-center">
+            <div class="relative lg:text-center">
+                {content.title && <h1 class="text-4xl md:text-6xl font-bold">{content.title}</h1>}
+                {content.subtitle && <h3 class="text-md md:text-xl my-4 text-base-content/75">{content.subtitle}</h3>}
+            </div>
+            <ul class="timeline timeline-snap-icon max-lg:timeline-compact timeline-vertical mt-6">
+                {
+                    content.children.map((item, index) => {
+                        const lastItem = index + 1 == content.children.length;
+                        const firstItem = index == 0;
+                        const oddItem = index % 2 === 0;
+                        return (
+                            <li>
+                                <hr class={clsx(firstItem ? "hidden" : "block", "bg-primary")} />
+                                <div class="timeline-middle">
+                                    <Icon name="lucide:circle-chevron-down" class="w-full h-full  rounded-full p-1" />
+                                </div>
+                                <div
+                                    class={clsx(
+                                        "mb-10",
+                                        oddItem ? "timeline-start lg:text-end" : "timeline-end lg:text-start"
+                                    )}
+                                >
+                                    <p class="font-serif italic">{item.periode}</p>
+                                    <div class="text-lg font-black">{item.title}</div>
+                                    <p class="text-base-content/75">{item.description}</p>
+                                </div>
+                                <hr class={clsx(lastItem ? "hidden" : "block", "bg-primary")} />
+                            </li>
+                        );
+                    })
+                }
+            </ul>
+        </div>
+    </div>
+</section>
