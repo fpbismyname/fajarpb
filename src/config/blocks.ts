@@ -1,3 +1,4 @@
+import { differenceInYears, format, subYears } from "date-fns";
 import type {
     BenefitsSectionContentType,
     BlockInterface,
@@ -13,8 +14,9 @@ const HeroBlock: BlockInterface<HeroContentType> = {
     name: "hero",
     type: "hero",
     contents: {
-        title: "Hi, iam Fajar",
-        subtitle: fakerID_ID.lorem.paragraph(),
+        title: "Hi, Saya Fajar",
+        subtitle:
+            "Web developer yang berfokus pada penerapan Search Engine Optimization (SEO) yang efektif, arsitektur yang efisien, dan performa website yang stabil.",
         badge: {
             label: "Freelance web developer",
             icon: "lucide:code-xml",
@@ -26,13 +28,13 @@ const HeroBlock: BlockInterface<HeroContentType> = {
         },
         actions: [
             {
-                label: "About me",
+                label: "Tentang saya",
                 href: "#about",
                 icon: "lucide:user",
                 variant: "btn-primary",
             },
             {
-                label: "My service",
+                label: "Jasa saya",
                 href: "https://fajardev.vercel.app",
                 icon: "lucide:external-link",
                 variant: "btn-outline",
@@ -46,7 +48,10 @@ const AboutBlock: BlockInterface<HeroContentType> = {
     type: "hero",
     contents: {
         title: "About Me",
-        subtitle: fakerID_ID.lorem.paragraph(),
+        subtitle: `Nama saya Fajar Perdiansyah Budiman, Saya tinggal di Jawabarat, Indonesia. Saya telah berdedikasi dibidang ini selama ${differenceInYears(
+            new Date(),
+            new Date("2024-01-01")
+        )} tahun`,
         reverse: true,
         image: {
             url: "https://dummyimage.com/500x500",

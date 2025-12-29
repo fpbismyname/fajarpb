@@ -11,25 +11,25 @@ export const NavigationMenu: NavigationMenuInterface = {
             href: "/#",
         },
         {
-            label: "About",
+            label: "Tentang saya",
             href: "/#about",
         },
         {
-            label: "Experience",
+            label: "Pengalaman",
             href: "/#experience",
         },
         {
-            label: "Showcase",
+            label: "Proyek",
             href: "/#showcase",
         },
         {
-            label: "Social media",
+            label: "Media sosial",
             href: "/#social-media",
         },
     ],
     rightButtons: [
         {
-            label: "My Services",
+            label: "Jasa saya",
             variant: "btn-outline",
             href: "https://fajardev.vercel.app",
             icon: "lucide:external-link",

@@ -4,7 +4,7 @@
 
 @plugin 'daisyui' {
     root: ":root";
-    themes: fajarpb --default, dark --prefersdark;
+    themes: fajarpb --default;
 }
 
 @plugin "daisyui/theme" {
